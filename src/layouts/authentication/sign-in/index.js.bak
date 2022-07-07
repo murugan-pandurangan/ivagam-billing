@@ -13,7 +13,7 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-import { useState, useContext, useEffect } from "react";
+import { useState } from "react";
 
 // react-router-dom components
 import { Link } from "react-router-dom";
@@ -155,16 +155,6 @@ function Basic() {
               </MDButton>
             </MDBox>
             <MDBox mt={3} mb={1} textAlign="center">
-			<MDTypography
-                  component={Link}
-                  to="/authentication/reset-password"
-                  variant="button"
-                  color="info"
-                  fontWeight="medium"
-                  textGradient
-                >
-                  Forgot Password
-                </MDTypography>
               <MDTypography variant="button" color="text">
                 Don&apos;t have an account?{" "}
                 <MDTypography
