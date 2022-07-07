@@ -14,6 +14,8 @@ Coded by www.creative-tim.com
 */
 
 // @mui material components
+import React, { useEffect } from "react";
+
 import Grid from "@mui/material/Grid";
 
 // Material Dashboard 2 React components
@@ -35,8 +37,23 @@ import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
 import Projects from "layouts/dashboard/components/Projects";
 import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
 
+import { userID } from "../../auth";
+
 function Dashboard() {
   const { sales, tasks } = reportsLineChartData;
+
+  const validateUser = async () =>{
+    const user = await userID();
+    if(!user)
+    {
+      window.location = "/sign-in"
+    }
+  }
+
+  useEffect(()=>{
+    validateUser();
+  })
+
 
   return (
     <DashboardLayout>

@@ -34,6 +34,7 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDInput from "components/MDInput";
 import MDButton from "components/MDButton";
+import MDAlert from "components/MDAlert";
 
 // Authentication layout components
 import BasicLayout from "layouts/authentication/components/BasicLayout";
@@ -41,13 +42,49 @@ import BasicLayout from "layouts/authentication/components/BasicLayout";
 // Images
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
 
+import axios from "axios";
+
+const api = process.env.REACT_APP_API_URI;
+
 function Basic() {
   const [rememberMe, setRememberMe] = useState(false);
+  const [isLoginFaild, setLoginFaild] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
-  const handleSubmit = () =>{
-    console.log(password, email);
+  const alertContent = (name) => (
+    <MDTypography variant="body2" color="white">
+      <MDTypography component="a" href="#" variant="body2" fontWeight="medium" color="white">
+        {errorMsg}
+      </MDTypography>
+    </MDTypography>
+  );
+  const handleSubmit = async () =>{
+    setLoginFaild(false);
+        const obj = {
+          "email": email,
+          "password": password
+        }
+     try {
+        const getData = await axios.post(`${api}login`, obj).then((response) => {
+           console.log('response', response);
+           return response.data;
+         });
+         console.log("getData", getData);
+          if (getData.status === 'success') {
+            localStorage.setItem('user_id', getData.data.id);
+            window.location = "/dashboard";
+            // Extract json
+          } else {
+            const msg = getData.message;
+            setErrorMsg(msg);
+            setLoginFaild(true);
+          }
+          
+      } catch (error) {
+        console.error(`Error ${error}`);
+      }
   }
 
   return (
@@ -87,11 +124,18 @@ function Basic() {
         </MDBox>
         <MDBox pt={4} pb={3} px={3}>
           <MDBox component="form" role="form">
+            {isLoginFaild && (
             <MDBox mb={2}>
-              <MDInput type="email" onChange={(e)=>setEmail(e.taget.value)} label="Email" fullWidth />
+                <MDAlert color="error" dismissible>
+                  {alertContent("error")}
+                </MDAlert>
+            </MDBox>
+            )}
+            <MDBox mb={2}>
+              <MDInput type="email" onChange={(e)=>setEmail(e.target.value)} label="Email" fullWidth />
             </MDBox>
             <MDBox mb={2}>
-              <MDInput type="password" label="Password" onChange={(e)=>setPassword(e.taget.value)} fullWidth />
+              <MDInput type="password" label="Password" onChange={(e)=>setPassword(e.target.value)} fullWidth />
             </MDBox>
             <MDBox display="flex" alignItems="center" ml={-1}>
               <Switch checked={rememberMe} onChange={handleSetRememberMe} />

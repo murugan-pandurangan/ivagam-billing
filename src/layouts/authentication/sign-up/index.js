@@ -14,6 +14,7 @@ Coded by www.creative-tim.com
 */
 
 // react-router-dom components
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 // @mui material components
@@ -25,16 +26,60 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDInput from "components/MDInput";
 import MDButton from "components/MDButton";
+import MDAlert from "components/MDAlert";
 
 // Authentication layout components
-import CoverLayout from "layouts/authentication/components/CoverLayout";
+import BasicLayout from "layouts/authentication/components/BasicLayout";
 
 // Images
 import bgImage from "assets/images/bg-sign-up-cover.jpeg";
 
+import axios from "axios";
+
+const api = process.env.REACT_APP_API_URI;
+
 function Cover() {
+  const [isRegisterFaild, setRegisterFaild] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
+  const [password, setPassword] = useState('');
+  const [cpassword, setCPassword] = useState('');
+  const [phone, setPhone] = useState('');
+  const [username, setUserName] = useState('');
+  const [email, setEmail] = useState('');
+
+  const alertContent = (name) => (
+    <MDTypography variant="body2" color="white">
+      <MDTypography component="a" href="#" variant="body2" fontWeight="medium" color="white">
+        {errorMsg}
+      </MDTypography>
+    </MDTypography>
+  );
+
+  const handleSubmit = async () =>{
+    setRegisterFaild(false);
+        const obj = { "name": username, "email": email, "password": password, "cpassword": cpassword, "phone": phone }
+     try {
+        const getData = await axios.post(`${api}register`, obj).then((response) => {
+           console.log('response', response);
+           return response.data;
+         });
+         console.log("getData", getData);
+          if (getData.status === 'success') {
+            window.location = "/sign-in";
+            // Extract json
+          } else {
+            const msg = getData.message;
+            setErrorMsg(msg);
+            setRegisterFaild(true);
+          }
+          
+      } catch (error) {
+        console.error(`Error ${error}`);
+      }
+  }
+
   return (
-    <CoverLayout image={bgImage}>
+    <BasicLayout image={bgImage}>
       <Card>
         <MDBox
           variant="gradient"
@@ -56,14 +101,27 @@ function Cover() {
         </MDBox>
         <MDBox pt={4} pb={3} px={3}>
           <MDBox component="form" role="form">
+            {isRegisterFaild && (
+              <MDBox mb={2}>
+                  <MDAlert color="error" dismissible>
+                    {alertContent("error")}
+                  </MDAlert>
+              </MDBox>
+              )}
             <MDBox mb={2}>
-              <MDInput type="text" label="Name" variant="standard" fullWidth />
+              <MDInput type="text" label="Name" onChange={(e)=>setUserName(e.target.value)} variant="standard" fullWidth />
             </MDBox>
             <MDBox mb={2}>
-              <MDInput type="email" label="Email" variant="standard" fullWidth />
+              <MDInput type="email" label="Email" onChange={(e)=>setEmail(e.target.value)}  variant="standard" fullWidth />
             </MDBox>
             <MDBox mb={2}>
-              <MDInput type="password" label="Password" variant="standard" fullWidth />
+              <MDInput type="text" label="Phone" onChange={(e)=>setPhone(e.target.value)}  variant="standard" fullWidth />
+            </MDBox>
+            <MDBox mb={2}>
+              <MDInput type="password" label="Password" onChange={(e)=>setPassword(e.target.value)} variant="standard" fullWidth />
+            </MDBox>
+            <MDBox mb={2}>
+              <MDInput type="password" label="Confirm Password" onChange={(e)=>setCPassword(e.target.value)} variant="standard" fullWidth />
             </MDBox>
             <MDBox display="flex" alignItems="center" ml={-1}>
               <Checkbox />
@@ -87,7 +145,7 @@ function Cover() {
               </MDTypography>
             </MDBox>
             <MDBox mt={4} mb={1}>
-              <MDButton variant="gradient" color="info" fullWidth>
+              <MDButton onClick={handleSubmit} variant="gradient" color="info" fullWidth>
                 sign in
               </MDButton>
             </MDBox>
@@ -109,7 +167,7 @@ function Cover() {
           </MDBox>
         </MDBox>
       </Card>
-    </CoverLayout>
+    </BasicLayout>
   );
 }
 
