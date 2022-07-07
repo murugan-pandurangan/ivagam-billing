@@ -44,7 +44,8 @@ import Notifications from "layouts/notifications";
 import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
-
+import Profile1 from "layouts/profile1";
+import ChangePassword from "layouts/change-password";
 // @mui icons
 import Icon from "@mui/material/Icon";
 
@@ -99,6 +100,14 @@ const routes = [
   },
   {
     type: "collapse",
+    name: "Profile1",
+    key: "profile1",
+    icon: <Icon fontSize="small">person</Icon>,
+    route: "/profile1",
+    component: <Profile1 />,
+  },
+  {
+    type: "collapse",
     name: "Sign In",
     key: "sign-in",
     icon: <Icon fontSize="small">login</Icon>,
@@ -112,6 +121,14 @@ const routes = [
     icon: <Icon fontSize="small">assignment</Icon>,
     route: "/authentication/sign-up",
     component: <SignUp />,
+  },
+  {
+    type: "collapse",
+    name: "Change Password",
+    key: "change-password",
+    icon: <Icon fontSize="small">assignment</Icon>,
+    route: "/change-password",
+    component: <ChangePassword />,
   },
 ];
 
