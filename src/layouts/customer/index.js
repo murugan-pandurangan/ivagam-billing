@@ -45,6 +45,7 @@ function Customers() {
   const { columns: pColumns, rows: pRows } = projectsTableData();
   const [ isAddEnable, setAddEnable ] = useState(false);
   const [isLoginFaild, setLoginFaild] = useState(false);
+  const [user_id, setUserID] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const [gst, setGst] = useState('');
   const [name, setName] = useState('');
@@ -56,6 +57,17 @@ function Customers() {
   const [license_title, setLicenseTitle] = useState('');
   const handleSubmit = async () =>{
 
+    /*   const obj = {
+        user_id: user_id,
+        gst_no: gst,
+        name: name,
+        email: email,
+        address: address,
+        mobile: mobile,
+        entity_type: entity,
+        licence_title: license_no,
+        licence_number: license_title
+      } */
   }
   const [ column, setColumn ] = useState(
     [
@@ -123,6 +135,7 @@ function Customers() {
     const user = await userID();
     if(user)
     {
+      setUserID(user);
       getCustomers(user);
     }else{
       window.location = "/sign-in"
@@ -233,9 +246,11 @@ function Customers() {
                         </MDButton>
                       </Grid>
                       <Grid item xs={12} md={6} xl={6}>
+                        {name && (
                         <MDButton onClick={handleSubmit} variant="gradient" color="info" fullWidth>
                           Create
                         </MDButton>
+                        )}
                       </Grid>
                     </Grid>
                   </Grid>
