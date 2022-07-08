@@ -48,6 +48,7 @@ import Customers from "layouts/customer";
 
 import Profile1 from "layouts/profile1";
 import ChangePassword from "layouts/change-password";
+import CreateProduct from "layouts/create-product";
 // @mui icons
 import Icon from "@mui/material/Icon";
 
@@ -139,6 +140,14 @@ const routes = [
     icon: <Icon fontSize="small">assignment</Icon>,
     route: "/change-password",
     component: <ChangePassword />,
+  },
+  {
+    type: "collapse",
+    name: "Product Services",
+    key: "product-services",
+    icon: <Icon fontSize="small">assignment</Icon>,
+    route: "/create-product",
+    component: <CreateProduct />,
   },
 ];
 
