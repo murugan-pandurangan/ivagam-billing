@@ -48,6 +48,7 @@ import Customers from "layouts/customer";
 
 import Profile1 from "layouts/profile1";
 import ChangePassword from "layouts/change-password";
+import Edituserdetails from "layouts/profile1/data/editUserdetails";
 import Vendor from "layouts/vendor";
 import ResetPassword from "layouts/authentication/reset-password";
 // @mui icons
@@ -143,6 +144,8 @@ const routes = [
     component: <ChangePassword />,
   },
   {
+    route: "/editUserdetails",
+    component: <Edituserdetails />,
     type: "collapse",
     name: "Forgot Password",
     key: "reset-password",
