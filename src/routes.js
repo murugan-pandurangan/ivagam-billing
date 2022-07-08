@@ -46,6 +46,7 @@ import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
 import Profile1 from "layouts/profile1";
 import ChangePassword from "layouts/change-password";
+import Edituserdetails from "layouts/profile1/data/editUserdetails";
 // @mui icons
 import Icon from "@mui/material/Icon";
 
@@ -129,6 +130,10 @@ const routes = [
     icon: <Icon fontSize="small">assignment</Icon>,
     route: "/change-password",
     component: <ChangePassword />,
+  },
+  {
+    route: "/editUserdetails",
+    component: <Edituserdetails />,
   },
 ];
 
