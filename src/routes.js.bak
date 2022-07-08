@@ -44,13 +44,8 @@ import Notifications from "layouts/notifications";
 import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
-import Customers from "layouts/customer";
-
 import Profile1 from "layouts/profile1";
 import ChangePassword from "layouts/change-password";
-import CreateProduct from "layouts/create-product";
-import Edituserdetails from "layouts/profile1/data/editUserdetails";
-import Vendor from "layouts/vendor";
 import ResetPassword from "layouts/authentication/reset-password";
 // @mui icons
 import Icon from "@mui/material/Icon";
@@ -63,14 +58,6 @@ const routes = [
     icon: <Icon fontSize="small">dashboard</Icon>,
     route: "/dashboard",
     component: <Dashboard />,
-  },
-  {
-    type: "collapse",
-    name: "Customers",
-    key: "customers",
-    icon: <Icon fontSize="small">table_view</Icon>,
-    route: "/customers",
-    component: <Customers />,
   },
   {
     type: "collapse",
@@ -146,27 +133,11 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Product Services",
-    key: "product-services",
-    icon: <Icon fontSize="small">assignment</Icon>,
-    route: "/create-product",
-    component: <CreateProduct />,
-    route: "/editUserdetails",
-    component: <Edituserdetails />,
-    type: "collapse",
     name: "Forgot Password",
     key: "reset-password",
     icon: <Icon fontSize="small">assignment</Icon>,
     route: "/authentication/reset-password",
     component: <ResetPassword />,
-  },
-  {
-    type: "collapse",
-    name: "Vendor",
-    key: "vendor",
-    icon: <Icon fontSize="small">assignment</Icon>,
-    route: "/vendor",
-    component: <Vendor />,
   },
 ];
 
