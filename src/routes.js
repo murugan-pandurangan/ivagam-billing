@@ -151,8 +151,16 @@ const routes = [
     icon: <Icon fontSize="small">assignment</Icon>,
     route: "/create-product",
     component: <CreateProduct />,
+  },
+  {
+    type: "collapse",
+    name: "Edit User",
+    key: "edit-user",
+    icon: <Icon fontSize="small">assignment</Icon>,
     route: "/editUserdetails",
     component: <Edituserdetails />,
+  },
+ {
     type: "collapse",
     name: "Forgot Password",
     key: "reset-password",
