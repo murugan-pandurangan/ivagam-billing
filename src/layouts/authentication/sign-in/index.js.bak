@@ -154,7 +154,21 @@ function Basic() {
                 sign in
               </MDButton>
             </MDBox>
+			<MDBox mt={3} mb={1} textAlign="center">
+			<MDTypography
+                  component={Link}
+                  to="/authentication/reset-password"
+                  variant="button"
+                  color="info"
+                  fontWeight="medium"
+                  textGradient
+                >
+                  Forgot Password
+				   </MDTypography>
+				   </MDBox>
             <MDBox mt={3} mb={1} textAlign="center">
+			
+               
               <MDTypography variant="button" color="text">
                 Don&apos;t have an account?{" "}
                 <MDTypography
