@@ -43,6 +43,9 @@ import rtlPlugin from "stylis-plugin-rtl";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 
+import SignIn from "layouts/authentication/sign-in";
+import SignUp from "layouts/authentication/sign-up";
+
 // Material Dashboard 2 React routes
 import routes from "routes";
 
@@ -156,7 +159,6 @@ export default function App() {
               color={sidenavColor}
               brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
               brandName="Ivagam Billing"
-              routes={routes}
               onMouseEnter={handleOnMouseEnter}
               onMouseLeave={handleOnMouseLeave}
             />
@@ -167,7 +169,9 @@ export default function App() {
         {layout === "vr" && <Configurator />}
         <Routes>
           {getRoutes(routes)}
-          <Route path="*" element={<Navigate to="/sign-in" />} />
+          <Route exact path="*" element={<SignIn />} />
+          <Route exact path="/sign-in" element={<SignIn />} />
+          <Route exact path="/authentication/sign-up" element={<SignUp />} />
           <Route path="/" element={<Navigate to="/dashboard" />} />
         </Routes>
       </ThemeProvider>
@@ -192,7 +196,9 @@ export default function App() {
       {layout === "vr" && <Configurator />}
       <Routes>
         {getRoutes(routes)}
-        <Route path="*" element={<Navigate to="/sign-in" />} />
+          <Route exact path="*" element={<SignIn />} />
+          <Route exact path="/sign-in" element={<SignIn />} />
+          <Route exact path="/authentication/sign-up" element={<SignUp />} />
         <Route path="/" element={<Navigate to="/dashboard" />} />
       </Routes>
     </ThemeProvider>

@@ -16,6 +16,7 @@ Coded by www.creative-tim.com
 // @mui material components
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import "./customer.css";
 
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
@@ -27,6 +28,7 @@ import Icon from "@mui/material/Icon";
 import MDButton from "components/MDButton";
 import MDAlert from "components/MDAlert";
 import MDInput from "components/MDInput";
+import { MenuItem } from "@mui/material";
 
 // Material Dashboard 2 React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
@@ -53,21 +55,79 @@ function Customers() {
   const [mobile, setMobile] = useState('');
   const [email, setEmail] = useState('');
   const [entity, setEntity] = useState('');
-  const [license_no, setLicenseNO] = useState(''); 
+  const [customerId, setCustomerId] = useState(''); 
+  const [license_no, setLicenseNO] = useState('');
   const [license_title, setLicenseTitle] = useState('');
+
+  const handleUpdate = async () =>{
+    const obj = {
+      "customer_id": customerId,
+      "gst_no": gst,
+      "name": name,
+      "email": email,
+      "address": address,
+      "mobile": mobile,
+      "entity_type": entity,
+      "licence_title": license_no,
+      "licence_number": license_title
+    }
+    const getData = await axios.post(`${api}update_customer`, obj).then((response) => {
+      console.log();
+      return response.data;
+    });
+    console.log();
+     if (getData.status === 'success') {
+       setCustomerId('');
+       setAddEnable(false);
+       setLoginFaild(false);
+       setGst('');
+       setName('');
+       setMobile('');
+       setLicenseNO('');
+       setLicenseTitle('');
+       setAddress('');
+       setErrorMsg('');
+       setEntity('');
+     } else {
+       const msg = getData.message;
+       setLoginFaild(true);
+       setErrorMsg(msg);
+     }
+  }
   const handleSubmit = async () =>{
 
-    /*   const obj = {
-        user_id: user_id,
-        gst_no: gst,
-        name: name,
-        email: email,
-        address: address,
-        mobile: mobile,
-        entity_type: entity,
-        licence_title: license_no,
-        licence_number: license_title
-      } */
+      const obj = {
+        "user_id": user_id,
+        "gst_no": gst,
+        "name": name,
+        "email": email,
+        "address": address,
+        "mobile": mobile,
+        "entity_type": entity,
+        "licence_title": license_no,
+        "licence_number": license_title,
+      }
+      const getData = await axios.post(`${api}add_customer`, obj).then((response) => {
+        console.log();
+        return response.data;
+      });
+      console.log();
+       if (getData.status === 'success') {
+         setAddEnable(false);
+         setLoginFaild(false);
+         setGst('');
+         setName('');
+         setMobile('');
+         setLicenseNO('');
+         setLicenseTitle('');
+         setAddress('');
+         setErrorMsg('');
+         setEntity('');
+       } else {
+         const msg = getData.message;
+         setLoginFaild(true);
+         setErrorMsg(msg);
+       }
   }
   const [ column, setColumn ] = useState(
     [
@@ -78,7 +138,7 @@ function Customers() {
       { Header: "action", accessor: "action", align: "center" },
     ]
   )
-  const [ rows, setRows ] = useState([]);
+  const [ customers, setCustomers ] = useState([]);
 
   const alertContent = () => (
     <MDTypography variant="body2" color="white">
@@ -88,27 +148,52 @@ function Customers() {
     </MDTypography>
   );
 
+  const editUser = async (id) =>{
+      setCustomerId(id);
+      const obj = {
+        "customer_id": id
+      }
+      const getData = await axios.post(`${api}get_customer_by_id`, obj).then((response) => {
+        console.log()
+        return response.data;
+      });
+       if (getData.status === 'success') {
+          const getRows = getData.data;
+          setAddEnable(true);
+          setGst(getRows && getRows.gstin__c?getRows.gstin__c:'');
+          setName(getRows && getRows.name__c?getRows.name__c:'');
+          setLicenseNO(getRows && getRows.license_number__c?getRows.license_number__c:'');
+          setLicenseTitle(getRows && getRows.license_title__c?getRows.license_title__c:'');
+          setAddress(getRows && getRows.address__c?getRows.address__c:'');
+          setEmail(getRows && getRows.email__c?getRows.email__c:'');
+          setMobile(getRows && getRows.phone__c?getRows.phone__c:'');
+          setEntity(getRows && getRows.entity_type__c?getRows.entity_type__c:'');
+       } else {
+         const msg = getData.message;
+       }
+  }
+
+
   const generateRow = async (getData) =>{
     const row = [];
     if(getData && getData.length > 0)
     {
-      getData.array.forEach((element, index) => {
+      getData.forEach((element, index) => {
         row.push({
           s_no: index+1,
           gstin: element.gstin__c,
           customer_name: element.name__c,
           address: element.address__c,
           action: (
-            <MDTypography component="a" href="#" color="text">
-              <Icon>more_vert</Icon>
+            <MDTypography style={{cursor:'pointer'}} onClick={()=>editUser(element.id)} component="a" color="text">
+              <Icon >more_vert</Icon>
             </MDTypography>
           ),
         })
       })
-      setRows(row);
+      setCustomers(row);
     }
   }
-
   
   const getCustomers = async (user) =>{
       const obj = {
@@ -116,10 +201,9 @@ function Customers() {
       }
     try {
       const getData = await axios.post(`${api}customers`, obj).then((response) => {
-         console.log('response', response);
+        console.log()
          return response.data;
        });
-       console.log("getData", getData);
         if (getData.status === 'success') {
            const getRows = getData.data;
            generateRow(getRows);
@@ -140,8 +224,7 @@ function Customers() {
     }else{
       window.location = "/sign-in"
     }
-  })
-
+  },[isAddEnable])
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -172,7 +255,7 @@ function Customers() {
               </MDBox>
               <MDBox pt={3}>
                 <DataTable
-                  table={{ columns: column, rows: pRows }}
+                  table={{ columns: column, rows: customers }}
                   isSorted={false}
                   entriesPerPage={false}
                   showTotalEntries={false}
@@ -197,7 +280,7 @@ function Customers() {
             coloredShadow="info"
           >
             <MDTypography variant="h6" color="white">
-            Create Customer
+              {customerId?"Edit Customer":"Create Customer"}
             </MDTypography>
           </MDBox>
           <MDBox pt={3}>
@@ -210,28 +293,51 @@ function Customers() {
                 </MDBox>
                 )}
                 <MDBox mb={2} mx={4}>
-                  <MDInput type="text" onChange={(e)=>setGst(e.target.value)} label="Customer GSTIN" fullWidth />
+                  <MDInput type="text" onChange={(e)=>setGst(e.target.value)} label="Customer GSTIN" value={gst} fullWidth />
                 </MDBox>
                 <MDBox mb={2}  mx={4}>
-                  <MDInput type="text" label="Customer Name" onChange={(e)=>setName(e.target.value)} fullWidth required />
+                  <MDInput type="text" label="Customer Name" onChange={(e)=>setName(e.target.value)} value={name} fullWidth required />
                 </MDBox>
                 <MDBox mb={2} mx={4}>
-                  <MDInput type="text" onChange={(e)=>setAddress(e.target.value)} label="Customer Address" fullWidth />
+                  <MDInput type="text" onChange={(e)=>setAddress(e.target.value)} value={address} label="Customer Address" fullWidth />
                 </MDBox>
                 <MDBox mb={2}  mx={4}>
-                  <MDInput type="text" label="Mobile" onChange={(e)=>setMobile(e.target.value)} fullWidth />
+                  <MDInput type="text" label="Mobile" onChange={(e)=>setMobile(e.target.value)} value={mobile} fullWidth />
                 </MDBox>
                 <MDBox mb={2} mx={4}>
-                  <MDInput type="text" onChange={(e)=>setEmail(e.target.value)} label="Email Address" fullWidth />
+                  <MDInput type="text" onChange={(e)=>setEmail(e.target.value)} label="Email Address" value={email} fullWidth />
+                </MDBox>
+                <MDBox mb={2} mx={4}>
+                  <MDInput
+                    size="large"
+                    select
+                    id="demo-simple-select"
+                    label="Gender"
+                    InputProps={{
+                      classes: { root: "select-input-styles" },
+                    }}
+                    value={entity}
+                    onChange={(e)=>setEntity(e.target.value)}
+                    fullWidth
+                  >
+                    <MenuItem value="Sole Proprietor">Sole Proprietor</MenuItem>
+                    <MenuItem value="Partnership Firm">Partnership Firm</MenuItem>
+                    <MenuItem value="LLP">LLP</MenuItem>
+                    <MenuItem value="OPC">OPC</MenuItem>
+                    <MenuItem value="Private Limited Company">Private Limited Company</MenuItem>
+                    <MenuItem value="Public Limited Company">Public Limited Company</MenuItem>
+                    <MenuItem value="Society/Trust/NGO">Society/Trust/NGO</MenuItem>
+                    <MenuItem value="Others">Others</MenuItem>
+                  </MDInput>
                 </MDBox>
                 <MDBox mx={4}>
                   <Grid item xs={12} pb={3}>
                     <Grid container spacing={3}>
                       <Grid item xs={12} md={6} xl={6}>
-                        <MDInput type="text" label="Details" onChange={(e)=>setLicenseNO(e.target.value)} fullWidth />
+                        <MDInput type="text" label="Details" value={license_no} onChange={(e)=>setLicenseNO(e.target.value)} fullWidth />
                       </Grid>
                       <Grid item xs={12} md={6} xl={6}>
-                        <MDInput type="text" label="Title" onChange={(e)=>setLicenseTitle(e.target.value)} fullWidth />
+                        <MDInput type="text" label="Title" value={license_title} onChange={(e)=>setLicenseTitle(e.target.value)} fullWidth />
                       </Grid>
                     </Grid>
                   </Grid>
@@ -246,10 +352,14 @@ function Customers() {
                         </MDButton>
                       </Grid>
                       <Grid item xs={12} md={6} xl={6}>
-                        {name && (
-                        <MDButton onClick={handleSubmit} variant="gradient" color="info" fullWidth>
-                          Create
+                        {name && customerId ?(
+                        <MDButton onClick={handleUpdate} variant="gradient" color="info" fullWidth>
+                          Update
                         </MDButton>
+                        ):name && (
+                          <MDButton onClick={handleSubmit} variant="gradient" color="info" fullWidth>
+                            Create
+                          </MDButton>
                         )}
                       </Grid>
                     </Grid>
