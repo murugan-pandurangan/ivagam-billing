@@ -44,6 +44,8 @@ import Notifications from "layouts/notifications";
 import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
+import Customers from "layouts/customer";
+
 import Profile1 from "layouts/profile1";
 import ChangePassword from "layouts/change-password";
 // @mui icons
@@ -57,6 +59,14 @@ const routes = [
     icon: <Icon fontSize="small">dashboard</Icon>,
     route: "/dashboard",
     component: <Dashboard />,
+  },
+  {
+    type: "collapse",
+    name: "Customers",
+    key: "customers",
+    icon: <Icon fontSize="small">table_view</Icon>,
+    route: "/customers",
+    component: <Customers />,
   },
   {
     type: "collapse",
