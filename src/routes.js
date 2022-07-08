@@ -48,6 +48,7 @@ import Customers from "layouts/customer";
 
 import Profile1 from "layouts/profile1";
 import ChangePassword from "layouts/change-password";
+import CreateProduct from "layouts/create-product";
 import Edituserdetails from "layouts/profile1/data/editUserdetails";
 import Vendor from "layouts/vendor";
 import ResetPassword from "layouts/authentication/reset-password";
@@ -144,6 +145,12 @@ const routes = [
     component: <ChangePassword />,
   },
   {
+    type: "collapse",
+    name: "Product Services",
+    key: "product-services",
+    icon: <Icon fontSize="small">assignment</Icon>,
+    route: "/create-product",
+    component: <CreateProduct />,
     route: "/editUserdetails",
     component: <Edituserdetails />,
     type: "collapse",
