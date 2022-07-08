@@ -94,6 +94,19 @@ function Customers() {
        setErrorMsg(msg);
      }
   }
+
+  const cancelForm = () =>{
+    setAddEnable(false);
+    setLoginFaild(false);
+    setGst('');
+    setName('');
+    setMobile('');
+    setLicenseNO('');
+    setLicenseTitle('');
+    setAddress('');
+    setErrorMsg('');
+    setEntity('');
+  }
   const handleSubmit = async () =>{
 
       const obj = {
@@ -312,7 +325,7 @@ function Customers() {
                     size="large"
                     select
                     id="demo-simple-select"
-                    label="Gender"
+                    label="Type of Entity"
                     InputProps={{
                       classes: { root: "select-input-styles" },
                     }}
@@ -347,7 +360,7 @@ function Customers() {
                   <Grid item xs={12} pb={3}>
                     <Grid container spacing={3}>
                       <Grid item xs={12} md={6} xl={6}>
-                        <MDButton onClick={()=>setAddEnable(false)} color="white" fullWidth>
+                        <MDButton onClick={cancelForm} color="white" fullWidth>
                           Cancel
                         </MDButton>
                       </Grid>
