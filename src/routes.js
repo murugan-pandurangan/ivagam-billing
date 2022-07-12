@@ -44,10 +44,9 @@ import Notifications from "layouts/notifications";
 import Profile from "layouts/profile";
 import Customers from "layouts/customer";
 
-import Profile1 from "layouts/profile1";
+import Profile1 from "layouts/profile1"
 import ChangePassword from "layouts/change-password";
 import CreateProduct from "layouts/create-product";
-import Edituserdetails from "layouts/profile1/data/editUserdetails";
 import Vendor from "layouts/vendor";
 import ResetPassword from "layouts/authentication/reset-password";
 // @mui icons
@@ -133,14 +132,6 @@ const routes = [
     icon: <Icon fontSize="small">assignment</Icon>,
     route: "/create-product",
     component: <CreateProduct />,
-  },
-  {
-    type: "collapse",
-    name: "Edit User",
-    key: "edit-user",
-    icon: <Icon fontSize="small">assignment</Icon>,
-    route: "/editUserdetails",
-    component: <Edituserdetails />,
   },
  {
     type: "collapse",
