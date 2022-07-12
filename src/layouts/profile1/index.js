@@ -436,10 +436,10 @@ function profile1() {
                   <Grid item xs={12} pb={3}>
                     <Grid container spacing={3}>
                       <Grid item xs={12} md={6} xl={6}>
-                        <MDInput type="text" label="Details" value={license_no} onChange={(e)=>setLicenseNO(e.target.value)} fullWidth />
+                        <MDInput type="text" label="License Title" value={license_title} onChange={(e)=>setLicenseTitle(e.target.value)} fullWidth />
                       </Grid>
                       <Grid item xs={12} md={6} xl={6}>
-                        <MDInput type="text" label="Title" value={license_title} onChange={(e)=>setLicenseTitle(e.target.value)} fullWidth />
+                        <MDInput type="text" label="License Number" value={license_no} onChange={(e)=>setLicenseNO(e.target.value)} fullWidth />
                       </Grid>
                     </Grid>
                   </Grid>
