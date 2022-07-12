@@ -214,20 +214,20 @@ function profile1() {
        if (getData.status === 'success') {
           const getRows = getData.data;
           setAddEnable(true);
-          setGst(getRows && getRows.gst_no?getRows.gst_no:'');
-          setCompanyName(getRows && getRows.company_name?getRows.company_name:'');
-          setPincode(getRows && getRows.pincode?getRows.pincode:'');
-          setFollowsMe(getRows && getRows.gst_composite?getRows.gst_composite:'');
-          setLicenseNO(getRows && getRows.license_number?getRows.license_number:'');
-          setLicenseTitle(getRows && getRows.license_title?getRows.license_title:'');
-          setAddress(getRows && getRows.address?getRows.address:'');
-          setEmail(getRows && getRows.email?getRows.email:'');
-          setMobile(getRows && getRows.mobile?getRows.mobile:'');
-          setEntity(getRows && getRows.entity_type?getRows.entity_type:'');
-          setNature_business(getRows && getRows.nature_business?getRows.nature_business:'');
-          setCin(getRows && getRows.cin_no?getRows.cin_no:'');
-          setPAN(getRows && getRows.pan_no?getRows.pan_no:'');
-          setWebsite(getRows && getRows.website?getRows.website:'');
+          setGst(getRows && getRows.gstin_c?getRows.gstin_c:'');
+          setCompanyName(getRows && getRows.compant_name__c?getRows.compant_name__c:'');
+          setPincode(getRows && getRows.pincode__c?getRows.pincode__c:'');
+          setFollowsMe(getRows && getRows.gst_composite__c?getRows.gst_composite__c:'');
+          setLicenseNO(getRows && getRows.license_number__c?getRows.license_number__c:'');
+          setLicenseTitle(getRows && getRows.license_title__c?getRows.license_title__c:'');
+          setAddress(getRows && getRows.address__c?getRows.address__c:'');
+          setEmail(getRows && getRows.email__c?getRows.email__c:'');
+          setMobile(getRows && getRows.phone__c?getRows.phone__c:'');
+          setEntity(getRows && getRows.entity_type__c?getRows.entity_type__c:'');
+          setNature_business(getRows && getRows.business_nature__c?getRows.business_nature__c:'');
+          setCin(getRows && getRows.cin__c?getRows.cin__c:'');
+          setPAN(getRows && getRows.pan__c?getRows.pan__c:'');
+          setWebsite(getRows && getRows.website__c?getRows.website__c:'');
        } else {
          const msg = getData.message;
        }
