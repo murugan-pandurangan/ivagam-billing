@@ -45,6 +45,7 @@ import createCache from "@emotion/cache";
 
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
+import ResetPassword from "layouts/authentication/reset-password";
 
 // Material Dashboard 2 React routes
 import routes from "routes";
@@ -172,6 +173,7 @@ export default function App() {
           <Route exact path="*" element={<SignIn />} />
           <Route exact path="/sign-in" element={<SignIn />} />
           <Route exact path="/authentication/sign-up" element={<SignUp />} />
+		  <Route exact path="/authentication/reset-password" element={<ResetPassword />} />
           <Route path="/" element={<Navigate to="/dashboard" />} />
         </Routes>
       </ThemeProvider>
@@ -199,6 +201,7 @@ export default function App() {
           <Route exact path="*" element={<SignIn />} />
           <Route exact path="/sign-in" element={<SignIn />} />
           <Route exact path="/authentication/sign-up" element={<SignUp />} />
+		  <Route exact path="/authentication/reset-password" element={<ResetPassword />} />
         <Route path="/" element={<Navigate to="/dashboard" />} />
       </Routes>
     </ThemeProvider>
