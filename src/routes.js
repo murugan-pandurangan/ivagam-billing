@@ -48,7 +48,7 @@ import Profile1 from "layouts/profile1"
 import ChangePassword from "layouts/change-password";
 import CreateProduct from "layouts/create-product";
 import Vendor from "layouts/vendor";
-
+import ResetPassword from "layouts/authentication/reset-password";
 // @mui icons
 import Icon from "@mui/material/Icon";
 
@@ -140,7 +140,7 @@ const routes = [
     icon: <Icon fontSize="small">assignment</Icon>,
     route: "/authentication/reset-password",
     component: <ResetPassword />,
- },
+  },
   {
     type: "collapse",
     name: "Vendor",

@@ -49,7 +49,6 @@ import ResetPassword from "layouts/authentication/reset-password";
 
 // Material Dashboard 2 React routes
 import routes from "routes";
-
 // Material Dashboard 2 React contexts
 import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "context";
 
