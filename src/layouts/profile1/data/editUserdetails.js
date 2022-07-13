@@ -19,7 +19,6 @@ import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
 import Switch from "@mui/material/Switch";
 
-import './editProfile.css';
 
 import MDInput from "components/MDInput";
 import MDButton from "components/MDButton";
