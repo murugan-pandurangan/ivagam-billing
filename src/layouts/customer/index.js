@@ -77,17 +77,20 @@ function Customers() {
     });
     console.log();
      if (getData.status === 'success') {
+      
        setCustomerId('');
        setAddEnable(false);
        setLoginFaild(false);
        setGst('');
        setName('');
        setMobile('');
+       setEmail('');
        setLicenseNO('');
        setLicenseTitle('');
        setAddress('');
        setErrorMsg('');
        setEntity('');
+       
      } else {
        const msg = getData.message;
        setLoginFaild(true);
@@ -96,11 +99,13 @@ function Customers() {
   }
 
   const cancelForm = () =>{
+    setCustomerId('');
     setAddEnable(false);
     setLoginFaild(false);
     setGst('');
     setName('');
     setMobile('');
+    setEmail('');
     setLicenseNO('');
     setLicenseTitle('');
     setAddress('');
@@ -131,6 +136,7 @@ function Customers() {
          setGst('');
          setName('');
          setMobile('');
+         setEmail('');
          setLicenseNO('');
          setLicenseTitle('');
          setAddress('');
@@ -198,9 +204,12 @@ function Customers() {
           customer_name: element.name__c,
           address: element.address__c,
           action: (
-            <MDTypography style={{cursor:'pointer'}} onClick={()=>editUser(element.id)} component="a" color="text">
-              <Icon >more_vert</Icon>
-            </MDTypography>
+           
+            <><MDTypography style={{ cursor: 'pointer' }} onClick={() => editUser(element.id)} component="a" color="text">
+              <Icon>edit</Icon>
+            </MDTypography><MDTypography style={{ cursor: 'pointer' }} onClick={() => editUser(element.id)} component="a" color="text">
+                <Icon>delete</Icon>
+              </MDTypography></>
           ),
         })
       })

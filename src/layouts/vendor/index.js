@@ -77,12 +77,14 @@ function Vendors() {
     });
     console.log();
      if (getData.status === 'success') {
+
        setVendorId('');
        setAddEnable(false);
        setLoginFaild(false);
        setGst('');
        setName('');
        setMobile('');
+       setEmail('');
        setLicenseNO('');
        setLicenseTitle('');
        setAddress('');
@@ -94,6 +96,22 @@ function Vendors() {
        setErrorMsg(msg);
      }
   }
+
+  const cancelForm = () =>{
+    setVendorId('');
+    setAddEnable(false);
+    setLoginFaild(false);
+    setGst('');
+    setName('');
+    setMobile('');
+    setEmail('');
+    setLicenseNO('');
+    setLicenseTitle('');
+    setAddress('');
+    setErrorMsg('');
+    setEntity('');
+  }
+
   const handleSubmit = async () =>{
 
       const obj = {
@@ -118,6 +136,7 @@ function Vendors() {
          setGst('');
          setName('');
          setMobile('');
+         setEmail('');
          setLicenseNO('');
          setLicenseTitle('');
          setAddress('');
@@ -185,9 +204,11 @@ function Vendors() {
           customer_name: element.name__c,
           address: element.address__c,
           action: (
-            <MDTypography style={{cursor:'pointer'}} onClick={()=>editUser(element.id)} component="a" color="text">
-              <Icon >more_vert</Icon>
-            </MDTypography>
+            <><MDTypography style={{ cursor: 'pointer' }} onClick={() => editUser(element.id)} component="a" color="text">
+              <Icon>edit</Icon>
+            </MDTypography><MDTypography style={{ cursor: 'pointer' }} onClick={() => editUser(element.id)} component="a" color="text">
+                <Icon>delete</Icon>
+              </MDTypography></>
           ),
         })
       })
@@ -347,7 +368,7 @@ function Vendors() {
                   <Grid item xs={12} pb={3}>
                     <Grid container spacing={3}>
                       <Grid item xs={12} md={6} xl={6}>
-                        <MDButton onClick={()=>setAddEnable(false)} color="white" fullWidth>
+                        <MDButton onClick={cancelForm} color="white" fullWidth>
                           Cancel
                         </MDButton>
                       </Grid>
